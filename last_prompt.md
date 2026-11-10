@@ -1,0 +1,11 @@
+# Resume context
+
+Latest request: clean up Docker/warnings and prepare the boilerplate with POS System identity. Completed: POS branding in frontend/browser/login/theme, API/model/schema defaults, environment examples, package metadata and docs; POS-scoped auth/tour storage; compatible npm audit fixes (0 vulnerabilities); vendor/UI chunk splitting; deprecated Ant Design Alert/List replacements and HTTP 422 constant update. No business modules or schema changes.
+
+Docker: `make up` builds each image once, then starts healthy database -> migration/seed -> healthy backend -> frontend. PostgreSQL 16 Alpine custom image adds locale tooling; new clusters use SCRAM. Existing data/auth configuration is preserved. Backend uses a venv; frontend has init signal handling; checks poll quickly at startup and every 30 seconds later. Ports remain 5434/8001/5174, configurable in private `.env.docker`. Existing login credentials are unchanged; POS storage keys require signing in again. `make down` preserves named volumes. Stack is left running.
+
+Verified 2026-11-11: real build/startup with existing DB; disposable initdb without locale/trust warnings; healthy services and migration exit 0; existing admin login, POS settings, frontend/API title and API proxy; 12 backend tests, 6 frontend tests, types/build, npm audit 0, git diff whitespace check. Two test-only dependency deprecations remain: Starlette httpx client and passlib crypt. Browser E2E/migration roundtrip not rerun. Do not claim production readiness or completed sales/offline/tenancy workflows.
+
+Read specs.md, AGENTS.md, PROJECT_STATE.md and deployment/verification docs before further work. Nested restaurant-pos-saas is a future planning package, not the runtime; terminology-only notes there do not complete its milestones. Preserve existing data, custom settings and credentials. Do not log secrets or add sample/business records without requirements.
+
+Latest request 2026-11-11: change POS color palette and share Docker commands. Applied teal #0F766E / emerald #047857 / slate #334155, dark slate sidebar #0F172A, white header and #F8FAFC background across defaults; updated and verified the running saved palette via authorized settings PUT. No business/schema changes. Commands remain make up/down/restart/ps/logs/test/migrate.
